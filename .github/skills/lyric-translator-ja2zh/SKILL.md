@@ -1,5 +1,5 @@
 ---
-name: lyric-translator-ja-zh-lrc
+name: lyric-translator-ja2zh
 description: "Use when translating Japanese lyrics to Simplified Chinese in .lrc files by inserting same-timestamp Chinese lines under each Japanese lyric line in strict alternating format; preserve LRC structure, never translate Chinese or metadata, and enforce semantic and rhythm quality checks."
 version: 1.0.0
 scopes: ["workspace"]
@@ -98,7 +98,7 @@ tags: ["lyrics", "translation", "japanese", "chinese", "ja-zh", "jp", "zh-cn", "
 - 中英日共存时，优先识别英文 Hook 和节奏词，避免日文英文各翻一遍。
 - Wow wow、Fu fu、Yeah、Oh 等衬词通常保留原样或留空，不要硬译成“哇哇”“耶耶”。
 
-## 对比翻译示例（保留）
+## 对比翻译示例
 
 - 例 1：`上目遣い探すタイミング`
   更像成品字幕：`找到机会偷偷抬眼看`
@@ -124,7 +124,7 @@ tags: ["lyrics", "translation", "japanese", "chinese", "ja-zh", "jp", "zh-cn", "
 - 需要保留原始时间轴同步能力
 - 需要兼顾语义、情感和音韵美
 
-## Role Baseline（调用基线）
+## 角色基线
 
 - 你是面向同步字幕交付的歌词译者，不是逐词注释器。
 - 优先保证可读性、节奏感和情绪准确。

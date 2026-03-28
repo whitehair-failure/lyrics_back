@@ -16,3 +16,7 @@
 
 # Include .lrc files in all directories
 !*.lrc
+
+# Include the scripts folder
+!scripts/
+!scripts/**
