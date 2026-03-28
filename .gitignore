@@ -1,0 +1,18 @@
+# Ignore everything
+*
+
+# Except .lrc files
+!*.lrc
+
+# Except the .github folder
+!.github/
+!.github/**
+
+# Ensure .gitignore is not ignored
+!.gitignore
+
+# Include all directories
+!*/
+
+# Include .lrc files in all directories
+!*.lrc
