@@ -93,7 +93,7 @@ def sanitize_filename(name):
     if not name:
         return None
     # 替换 Windows 文件名不允许的字符
-    return re.sub(r'[\\/:*?"<>|]', '_', name)
+    return re.sub(r'[\\/:*?"<>|]', '; ', name)
 
 def rename_music_files(folder_path):
     """扫描文件夹并重命名音乐文件"""
