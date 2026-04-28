@@ -1,0 +1,58 @@
+{
+  "name": "lyric-translator-skill",
+  "version": "1.0.0",
+  "description": " Agent skill: translate song lyrics between Chinese (ZH), Japanese (JA), Korean (KO), and English (EN) in .lrc timed-lyrics format. Supports all 12 direction pairs.",
+  "keywords": [
+    "agent-skill",
+    "skill",
+    "lyrics",
+    "translation",
+    "lrc",
+    "bilingual",
+    "karaoke",
+    "timed-lyrics",
+    "j-pop",
+    "k-pop",
+    "c-pop",
+    "zh",
+    "ja",
+    "ko",
+    "en",
+    "transcreation",
+    "localization",
+    "inline-translation"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "SKILL.md",
+    "reference/",
+    "README.md",
+    "README.zh.md",
+    "README.ja.md",
+    "README.ko.md",
+    "LICENSE"
+  ],
+  "skill": {
+    "name": "lyric-translator",
+    "entry": "SKILL.md",
+    "version": "1.0.0",
+    "scopes": ["workspace"],
+    "tags": [
+      "lyrics", "translation", "lrc",
+      "zh", "ja", "ko", "en",
+      "j-pop", "k-pop", "c-pop"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/lyric-translator-skill.git"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/lyric-translator-skill#readme",
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/lyric-translator-skill/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

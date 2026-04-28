@@ -1,0 +1,9 @@
+# Exclude everything by default; the "files" field in package.json controls what gets published.
+# This file just ensures editor/OS artifacts don't slip through.
+
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+.git/
+.gitignore
