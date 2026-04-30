@@ -14,7 +14,12 @@ When invoked frequently, apply these 8 rules first:
 3. **Pre-read context**: Before translating each line, review 3–5 lines before and after to catch long-sentence splits, chained grammar, and code-mixed passages.
 4. **Core before modifier**: Translate the action/conclusion/emotional core first, then decide on modifiers and register.
 5. **Singability over literalism**: Translations must be clear, natural, and singable. Single-line length must stay within the cap defined in the pair-specific file; split at natural breath points rather than cramming onto one line.
-6. **Respect breath points**: Each translated line should be readable in isolation. Never front-load a subsequent line's conclusion into the current line.
+6. **Translation priority order** — When rules conflict, apply in this order:
+   1. **Semantic integrity** (highest) — block-level meaning must be preserved
+   2. **Timeline alignment** — one output line per source line
+   3. **Single-line readability** (lowest) — desirable but subordinate to #1 and #2
+
+   → Do **not** force a non-closing clause into a complete standalone sentence to satisfy single-line readability. Front-loading the next line's conclusion is also prohibited.
 7. **Consistent key terms**: Use the same translation for choruses, hooks, core imagery, and the song title throughout the entire file. Reuse identical wording for repeated lines.
 8. **Final check before output**: Confirm no target-language lines were modified, no metadata was touched, no third line was stacked onto a source line, no plot points were added, and all line lengths are within cap.
 
@@ -55,6 +60,83 @@ When invoked frequently, apply these 8 rules first:
 - [ ] Lock in chorus, hook, and core-imagery translations to use consistently throughout.
 - [ ] Flag long-sentence splits, chained grammar, and code-mixed passages. For lines with existing translations, decide: keep, overwrite, or skip (never stack).
 
+### Step 1.5 — Semantic Chunking (Mandatory)
+
+> **This is a hard gate in the pipeline. Step 2 (translation) must not begin until semantic block construction is complete.**
+
+**Pipeline order:**
+
+```
+Parse LRC → Build semantic blocks → Block-level comprehension → Map output back to timeline (one line per source line)
+```
+
+**Mandatory block construction (must not be skipped):**
+
+Before writing any translation, construct the internal block map in memory:
+
+```
+Block 1: [lines A, B]   — chained (te-form / enjambment / modifier chain)
+Block 2: [line C]       — self-contained
+Block 3: [lines D, E]   — chained (incomplete predicate / verb-ending stack)
+```
+
+→ Every source line must be assigned to exactly one block.
+→ **Block construction incomplete → do not proceed to Step 2.**
+
+**Procedure:**
+
+1. Detect source language (JA / EN / ZH / KO) and load block-detection signals from the pair-specific file.
+2. Scan each source line for incomplete-sentence signals (see table below).
+3. Group consecutive semantically connected lines into a **semantic block**. A block may be 1 line (self-contained) or multiple lines (chained/dependent).
+4. **Translate at block level**: Derive meaning, pronouns, and register from the full block, then output one translation per source line.
+   - Output format is unchanged: each source line gets exactly one same-timestamp translation line.
+   - The *meaning* used to write that translation comes from the whole block — not the isolated line.
+5. **Allow non-closing expressions**: A non-closing source line may produce a non-closing translation — do **not** force it into a standalone complete sentence.
+
+**Universal incomplete-sentence signals:**
+
+| Signal type | Description |
+|:---|:---|
+| No predicate closure | Line ends without a terminating verb or complete predicate |
+| Modifier without head | Line is a modifier whose head noun/verb is on the next line |
+| Connective dependency | Line begins with a connective that requires the previous line |
+| Unresolved reference | Pronoun or demonstrative on this line resolves only on the next line |
+
+---
+
+### Semantic Integrity Guard
+
+If **any** of the following is detected, per-line independent translation is **prohibited**:
+
+| Trigger | Condition |
+|:---|:---|
+| Consecutive incomplete lines | Two or more consecutive lines with no terminal predicate |
+| Consecutive modifier chains | Two or more consecutive lines ending with te-form / `〜ように` / `〜ながら` / enjambment / verb-ending stack |
+| Cross-line semantic dependency | Current line's meaning requires the next line to resolve |
+
+→ ❌ **Independent per-line translation is forbidden**
+→ ✅ **Merge into one semantic block, then translate**
+
+Violating this guard is a critical translation error.
+
+**Wrong (violates Semantic Integrity Guard):**
+
+```lrc
+[00:01]沈むように       →  像沉入水中一般
+[00:02]溶けてゆくように  →  像要融化消失那样
+```
+
+*Both lines forced into standalone similes — redundant, stilted, and a semantic integrity violation.*
+
+**Correct (block-level comprehension, then per-line output):**
+
+```lrc
+[00:01]沈むように       →  如同在沉沦
+[00:02]溶けてゆくように  →  又如同在消融
+```
+
+> Language-specific block-detection signals (JA te-form chains, EN enjambment, ZH poetic cuts, KO verb-ending stacks) are defined in the pair-specific file under the **Semantic Chunking** section.
+
 ### Step 2 — Translate (First Draft)
 
 - [ ] Process each source line: insert one same-timestamp translation line directly below.
@@ -62,6 +144,13 @@ When invoked frequently, apply these 8 rules first:
 - [ ] Split lines at natural breath points; keep each line self-contained. Do not front-load the next line's conclusion.
 - [ ] Code-mixed lines: preserve the source line as-is; translate the overall meaning naturally in the target line.
 - [ ] Filler vocalization lines / pure `♪` lines → pass through unchanged.
+
+**Translation behavior constraints:**
+
+- ❌ Avoid over-explanation, semantic completion, and literary expansion beyond what the source contains.
+- ❌ Do not add cause-and-effect structure where the source only implies it.
+- ❌ Do not transform a non-closing expression into a conclusion sentence.
+- ✅ Prioritize: direct expression, action-driven phrasing, singability.
 
 ### Step 3 — Refine
 

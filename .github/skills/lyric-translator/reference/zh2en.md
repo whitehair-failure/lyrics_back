@@ -146,6 +146,29 @@ Chinese reduplication expresses gradual, gentle, or intensified action.
 - Wrong: `lightly`
 - Correct: `so softly` / `gently`
 
+## Semantic Chunking — Chinese Source Signals (Mandatory)
+
+Apply per `common.md` Step 1.5: build semantic blocks before translating. The following signals are specific to Chinese lyrics.
+
+| Signal type | Detection condition |
+|:---|:---|
+| Image-only line | Line consists of nouns / adjectives only — no verb or predicate |
+| Topic without predicate | Line presents a topic; predicate is on the next line |
+| 排比 (parallel pair) leading half | First half of a parallel couplet — incomplete without the second |
+| Emotional build-up | Preceding line sets the scene / image; this line is where emotion lands |
+
+**Block-level translation rules:**
+
+- Each source line still receives exactly one translation line (format unchanged).
+- Meaning, pronoun choice, and register are decided from the full block, not the isolated line.
+- A non-closing source line may produce a non-closing English expression — do **not** force it into a grammatically complete standalone sentence.
+
+**Correct principle:**
+
+- When an image-only line (noun phrase) appears, read the next line before committing to a translation.
+- Scene-setting line + emotional landing line = one block. Carry the emotional temperature from the first line into the second.
+- When the leading half of a 排比 pair appears, understand both halves together before writing either translation.
+
 ## 10. Final Checklist (7 Points)
 
 - [ ] **Subject restored**: Every line has an appropriate explicit subject; no ghost subjects.

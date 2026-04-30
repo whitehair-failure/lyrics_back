@@ -137,6 +137,39 @@ Japanese lyrics often leave subjects, objects, and causal links unstated (high-c
 - Wrong: `[00:01]I cried and laughed and cried again`
 - Correct: `[00:01]I cried` / `[00:02]then laughed` / `[00:03]and cried again`
 
+## Semantic Chunking — Japanese Source Signals (Mandatory)
+
+Apply per `common.md` Step 1.5: build semantic blocks before translating. The following signals are specific to Japanese lyrics.
+
+| Signal type | Detection condition |
+|:---|:---|
+| Te-form chain | Line ends with `~て` / `~で` — predicate not closed |
+| Modifier chain | Line ends with `~ように` / `~まま` / `~ながら` — head noun/verb is on the next line |
+| No terminal verb | Line has no sentence-final verb form — sentence not closed |
+| Conditional / concessive | Line ends with `~なら` / `~たら` / `~ば` / `~けど` — cannot stand alone |
+
+**Block-level translation rules:**
+
+- Each source line still receives exactly one translation line (format unchanged).
+- Meaning, pronoun choice, and register are decided from the full block, not the isolated line.
+- A non-closing source line may produce a non-closing English expression — do **not** force it into a grammatically complete standalone sentence.
+
+**Wrong (line-by-line, no chunking):**
+
+```
+[00:01]沈むように       →  Like sinking down
+[00:02]溶けてゆくように  →  Like melting away
+```
+
+*Problem: Both lines forced into identical simile scaffolding. Redundant and stilted.*
+
+**Correct (block-level comprehension, then per-line output):**
+
+```
+[00:01]沈むように       →  as if sinking
+[00:02]溶けてゆくように  →  as if dissolving away
+```
+
 ## 11. Final Checklist (7 Points)
 
 - [ ] **Subject restored**: Every English line has an explicit subject (unless clearly imperative).

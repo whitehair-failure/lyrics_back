@@ -136,6 +136,39 @@ Korean is syllable-timed; English is stress-timed. Prioritize matching the numbe
 - Wrong: inserts translation below it
 - Correct: skip entirely
 
+## Semantic Chunking — Korean Source Signals (Mandatory)
+
+Apply per `common.md` Step 1.5: build semantic blocks before translating. The following signals are specific to Korean lyrics.
+
+| Signal type | Detection condition |
+|:---|:---|
+| Verb ending stack | Line ends with `~고` / `~어서` / `~면서` / `~지만` / `~는데` — predicate not closed |
+| Emotional build-up | Previous line provides cause / setup; this line is where emotion lands |
+| Conditional clause | Line ends with `~면/으면` — conditional clause alone, cannot stand independently |
+| Reference dependency | Demonstrative / pronoun (`이걸` / `그게`) resolves on the next line |
+
+**Block-level translation rules:**
+
+- Each source line still receives exactly one translation line (format unchanged).
+- Meaning, pronoun choice, and register are decided from the full block, not the isolated line.
+- A non-closing source line may produce a non-closing English expression — do **not** force it into a grammatically complete standalone sentence.
+
+**Wrong (line-by-line, no chunking):**
+
+```
+[00:01]사랑한다고          →  That I love you
+[00:02]말하고 싶어         →  I want to say
+```
+
+*Problem: The emotional arc is split across two orphaned half-sentences.*
+
+**Correct (block-level comprehension, then per-line output):**
+
+```
+[00:01]사랑한다고          →  I want to say
+[00:02]말하고 싶어         →  that I love you
+```
+
 ## 10. Final Checklist (7 Points)
 
 - [ ] **Word order**: Every English translation follows natural SVO order; no Korean-order artifacts.
